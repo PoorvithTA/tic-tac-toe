@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tic-Tac-Toe | Poorvith T.A</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #dbe6e4, #b7c1d1);
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      color: #222;
+    }
+    header {
+      background: linear-gradient(90deg, #2193b0, #6dd5ed);
+      padding: 1.5rem 1rem;
+      text-align: center;
+      border-bottom-left-radius: 28px;
+      border-bottom-right-radius: 28px;
+      box-shadow: 0 2px 6px rgba(42, 55, 73, 0.08);
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.3rem;
+      letter-spacing: 2px;
+      color: #fff;
+    }
+    header p {
+      color: #e4f7ff;
+      margin-top: 0.4rem;
+      font-size: 1.02rem;
+    }
+    .container {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .game-box {
+      background: #fff;
+      padding: 2rem 2.4rem;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      min-width: 340px;
+      max-width: 400px;
+      text-align: center;
+    }
+    .instructions {
+      font-size: 1.08rem;
+      color: #4b5563;
+      margin-bottom: 1rem;
+    }
+    .board {
+      display: grid;
+      grid-template-columns: repeat(3, 70px);
+      grid-gap: 10px;
+      justify-content: center;
+      margin: 1.5rem auto;
+    }
+
+    a {
+      color: white;
+      font-weight: bold;
+    }
+
+    .cell {
+      width: 70px;
+      height: 70px;
+      background: #f4f8fb;
+      border: 2px solid #b2bec3;
+      border-radius: 8px;
+      font-size: 2.25rem;
+      color: #2294ed;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background-color 0.15s;
+      user-select: none;
+    }
+    .cell:hover {
+      background: #e4f1fb;
+    }
+    .message {
+      font-weight: bold;
+      color: #17b978;
+      margin: 1rem 0 0.6rem 0;
+      font-size: 1.07rem;
+    }
+    .reset-btn {
+      margin-top: 1rem;
+      padding: 0.68em 1.4em;
+      background: linear-gradient(90deg, #11998e, #38ef7d);
+      color: #fff;
+      font-size: 1.03rem;
+      border: none;
+      border-radius: 7px;
+      cursor: pointer;
+      font-weight: 500;
+      letter-spacing: 1px;
+      box-shadow: 0 2px 6px rgba(54, 215, 183, 0.11);
+      transition: background 0.17s;
+    }
+    .reset-btn:hover {
+      background: linear-gradient(90deg, #38ef7d, #11998e);
+    }
+    footer {
+      margin-top: 2rem;
+      background: linear-gradient(90deg, #ad5389, #3c1053);
+      color: #e6e6fa;
+      text-align: center;
+      padding: 1rem;
+      font-size: 1rem;
+      border-top-left-radius: 28px;
+      border-top-right-radius: 28px;
+      box-shadow: 0 -2px 6px rgba(73, 53, 105, 0.07);
+    }
+    @media (max-width: 600px) {
+      .game-box {
+        padding: 1.1rem 0.4rem;
+        min-width: 98vw;
+        max-width: 99vw;
+      }
+      .board {
+        grid-template-columns: repeat(3, 56px);
+        grid-gap: 6px;
+      }
+      .cell {
+        width: 56px;
+        height: 56px;
+        font-size: 1.4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Tic-Tac-Toe</h1>
+    <p>The classic game of strategy, luck, and fun! 🚀</p>
+  </header>
+
+  <div class="container">
+    <div class="game-box">
+      <div class="instructions">
+        The game starts with an empty 3×3 grid.<br>
+        Two players (X & O) take turns placing symbols. First to get 3 in a row wins!
+      </div>
+      <div class="message" id="message">Player X starts the game.</div>
+      <div class="board" id="board">
+        <div class="cell" data-index="0"></div>
+        <div class="cell" data-index="1"></div>
+        <div class="cell" data-index="2"></div>
+        <div class="cell" data-index="3"></div>
+        <div class="cell" data-index="4"></div>
+        <div class="cell" data-index="5"></div>
+        <div class="cell" data-index="6"></div>
+        <div class="cell" data-index="7"></div>
+        <div class="cell" data-index="8"></div>
+      </div>
+      <button class="reset-btn" id="reset">Reset</button>
+    </div>
+  </div>
+
+  <footer>
+    Made with 💓 &amp; Care by <a href="https://youtube.com/@PoorvithsLife_Official">Poorvith T.A</a>
+    <br>  <br>
+    <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Support me on Ko-fi', '#72a4f2', 'O5O81GPS1N');kofiwidget2.draw();</script> 
+    <br><br>
+    © 2025 Poorvith T.A • <a href="https://ig.me/m/i_am_poorvith" target="_blank">Contact Me</a> 
+  </footer>
+
+  <script>
+    const cells = document.querySelectorAll('.cell');
+    const messageElem = document.getElementById('message');
+    const resetBtn = document.getElementById('reset');
+    let board = Array(9).fill('');
+    let currentPlayer = 'X';
+    let winner = null;
+    let moves = 0;
+    const winPatterns = [
+      [0,1,2], [3,4,5], [6,7,8], // rows
+      [0,3,6], [1,4,7], [2,5,8], // cols
+      [0,4,8], [2,4,6]           // diagonals
+    ];
+
+    function checkWinner() {
+      for (let pattern of winPatterns) {
+        const [a,b,c] = pattern;
+        if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+          return board[a];
+        }
+      }
+      return null;
+    }
+
+    function updateMessage() {
+      if (winner) {
+        messageElem.textContent = `Player ${winner} wins! 🎉`;
+        messageElem.style.color = '#db2323';
+      } else if (moves === 9) {
+        messageElem.textContent = "It's a draw!";
+        messageElem.style.color = '#ea8c0f';
+      } else {
+        messageElem.textContent = `Player ${currentPlayer}'s turn.`;
+        messageElem.style.color = '#17b978';
+      }
+    }
+
+    function cellClick(e) {
+      const idx = e.target.getAttribute('data-index');
+      if (board[idx] || winner) return;
+      board[idx] = currentPlayer;
+      e.target.textContent = currentPlayer;
+      moves++;
+      winner = checkWinner();
+      if (!winner && moves < 9) currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+      updateMessage();
+    }
+
+    cells.forEach(cell => cell.addEventListener('click', cellClick));
+
+    resetBtn.addEventListener('click', () => {
+      board = Array(9).fill('');
+      currentPlayer = 'X';
+      winner = null;
+      moves = 0;
+      cells.forEach(cell => cell.textContent = '');
+      updateMessage();
+    });
+
+    updateMessage();
+  </script>
+</body>
+</html>
